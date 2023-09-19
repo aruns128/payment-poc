@@ -33,7 +33,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post('http://localhost:1337/razorpay', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/razorpay`, {
         amount: amount
       });
 
@@ -41,13 +41,13 @@ function App() {
       console.log(data);
 
       const options = {
-        key: 'rzp_test_5iSAt39JajsMey',
+        key: process.env.REACT_APP_KEY_ID,
         currency: data.currency,
         amount: data.amount.toString(),
         order_id: data.id,
         name: 'Donation',
         description: 'Thank you for nothing. Please give us some money',
-        image: 'http://localhost:1337/logo.svg',
+        image: `${process.env.REACT_APP_BACKEND}/logo.svg`,
         handler: function (response) {
           alert(response.razorpay_payment_id);
           alert(response.razorpay_order_id);
@@ -56,7 +56,7 @@ function App() {
         prefill: {
           name: "Arunkumar",
           email: 'thisistestmailid@gmail.com',
-          phone_number: '9899999999',
+          phone_number: '9876543210',
         },
       };
 
@@ -75,15 +75,32 @@ function App() {
         <p>
           Simple payment App with Razorpay
         </p>
-        <input onChange={(e) => setAmount(e.target.value)} value={amount} />
+        {/* <input onChange={(e) => setAmount(e.target.value)} value={amount} />
         <button
-          className="App-link"
           onClick={displayRazorpay}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {`Donate INR ${amount}`}
-        </button>
+          {`Donate`}
+        </button> */}
+        <div className="payment-card">
+          <input
+            type="text" // Change the input type to "text"
+            inputMode="numeric" // Specify numeric input mode
+            pattern="[0-9]*" // Restrict input to numbers only
+            placeholder="Enter donation amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+
+          {/* <input
+            type="number"
+            placeholder="Enter donation amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          /> */}
+          <button className="donate-button" onClick={displayRazorpay}>Donate</button>
+        </div>
       </header>
     </div>
   )
