@@ -49,9 +49,10 @@ function App() {
         description: 'Thank you for nothing. Please give us some money',
         image: `${process.env.REACT_APP_BACKEND}/logo.svg`,
         handler: function (response) {
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature);
+          setAmount("")
         },
         prefill: {
           name: "Arunkumar",
@@ -85,9 +86,7 @@ function App() {
         </button> */}
         <div className="payment-card">
           <input
-            type="text" // Change the input type to "text"
-            inputMode="numeric" // Specify numeric input mode
-            pattern="[0-9]*" // Restrict input to numbers only
+            type="text"
             placeholder="Enter donation amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
